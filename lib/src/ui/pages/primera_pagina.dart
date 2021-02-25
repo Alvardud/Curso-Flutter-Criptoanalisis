@@ -15,12 +15,16 @@ class PrimeraPagina extends StatelessWidget {
         child: RaisedButton(
           child: Text("Navegacion"),
           onPressed: (){
+
+            //Navigator es el widget que permite navegar entre rutas
+            //Para este caso navegamos utilizando MaterialPageRoute la cual contiene la animacion de navegacion y tambien asigna al arbol de widgets la nueva pantalla mediante builder
             Navigator.push(context, MaterialPageRoute(
               builder: (context){
                 return CuartaPagina(element: "Hola");
               }
             ));
 
+            //Tambien podemos navegar hacia una nueva ruta mediante las rutas nombradas
             //Navigator.pushNamed(context, CuartaPagina.CUARTA_PAGINA_RUTA);
           },
         ),

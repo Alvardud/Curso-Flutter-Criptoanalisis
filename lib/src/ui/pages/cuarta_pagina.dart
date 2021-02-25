@@ -5,6 +5,7 @@ class CuartaPagina extends StatelessWidget {
   final String element;
   CuartaPagina({this.element});
 
+  //ruta asignada a la cuarta pantalla
   static const CUARTA_PAGINA_RUTA = "cuarta_pagina";
 
   @override
@@ -18,6 +19,7 @@ class CuartaPagina extends StatelessWidget {
           child: RaisedButton(
             child: Text("Volver"),
             onPressed: (){
+              //Navigator pop permitira retornar a la anterior ruta definida
               Navigator.pop(context);
             },
           ),

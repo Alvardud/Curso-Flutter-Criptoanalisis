@@ -21,19 +21,25 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+
+//ticker provider nos permitira sincronizar los estados dentro de nuestra aplicacion
+//en este caso se utilizara en el controlador del tab bar
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   int controlador;
 
+  //lista de paginas que se utilizara en el cuerpo de la aplicacion
   List<Widget> pantallas = [
     PrimeraPagina(),
     SegundaPagina(),
     TerceraPagina(),
   ];
 
+  //controlador del tabbar
   TabController _controller;
 
   @override
   void initState() {
+    //al inicializar el controlador asignamos la propiedad vsync la cual sera utilizada en el mixin
     _controller = TabController(length: 3, vsync: this);
     controlador = 0;
     super.initState();
@@ -43,7 +49,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     //Guia de estilos
     return MaterialApp(
+      //podemos asignar las rutas nombradas en MaterialApp para tener un control mas sencillo de las rutas de la app
       routes: {
+        //Ruta de la cuarta pagina que retorna su Widget o clase asignada
         CuartaPagina.CUARTA_PAGINA_RUTA: (context) => CuartaPagina(),
       },
       title: 'Flutter Demo',
@@ -53,9 +61,10 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        //Body sera el cuerpo de la aplicacion
+        //TabBarView administra las pantallas mediante la fisica del arrastrado de izquierda a derecha
         body: TabBarView(
           children: pantallas,
+          //Se debe asignar el controlador tanto al tab bar como al tabbarview
           controller: _controller,
         ),
         //Boton de accion flotante (parte inferior derecha)
@@ -66,7 +75,10 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         //Appbar (header o cavecera)
         appBar: AppBar(
           title: Text("Mi primera aplicacion"),
+          //bottom es un widget que se posicionara en la parte inferior del app bar
+          //generalmente es otro appbar o un tabbar
           bottom: TabBar(
+            //tab bar retorna un valor asignado o picker del numero de tab que fue presionado
             onTap: (value) {
               setState(() {
                 controlador = value;
@@ -80,6 +92,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             ],
           ),
         ),
+        //drawer es un menu que se encuentra oculto en la parte izquierda de la pantalla
         drawer: Drawer(
           child: Padding(
             padding: const EdgeInsets.all(0),
@@ -124,13 +137,17 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             ),
           ),
         ),
+        //bottom navigation bar es un menu que se ubica en la parte inferior de la pantalla
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _controller.index,
+          //al igual que tab bar retorna el valor numerico del elemento en el que se presiono
           onTap: (value) {
             setState(() {
+              //en este caso indicaremos a nuestro tab bar que navegue hacia el valor de la pantalla
               _controller.animateTo(value);
             });
           },
+          //items del bottom navigation bar 
           items: [
             BottomNavigationBarItem(
               label: "Primera",
