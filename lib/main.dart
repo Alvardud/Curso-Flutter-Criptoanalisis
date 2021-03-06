@@ -2,6 +2,7 @@ import 'package:aplicacion_prueba/src/ui/pages/cuarta_pagina.dart';
 import 'package:aplicacion_prueba/src/ui/pages/primera_pagina.dart';
 import 'package:aplicacion_prueba/src/ui/pages/segunda_pagina.dart';
 import 'package:aplicacion_prueba/src/ui/pages/tercera_pagina.dart';
+import 'package:aplicacion_prueba/src/ui/widgets/loading_widget/loading_widget_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -21,6 +22,8 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+//Scaffold Key
+GlobalKey<ScaffoldState> homeState = GlobalKey<ScaffoldState>();
 
 //ticker provider nos permitira sincronizar los estados dentro de nuestra aplicacion
 //en este caso se utilizara en el controlador del tab bar
@@ -61,6 +64,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
+        key: homeState,
         //TabBarView administra las pantallas mediante la fisica del arrastrado de izquierda a derecha
         body: TabBarView(
           children: pantallas,
@@ -69,7 +73,10 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         ),
         //Boton de accion flotante (parte inferior derecha)
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            LoadingWidgetController.instance.loading();
+            LoadingWidgetController.instance.changeText("Se activo en FAB");
+          },
           child: Icon(Icons.edit),
         ),
         //Appbar (header o cavecera)

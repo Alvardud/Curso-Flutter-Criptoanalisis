@@ -1,5 +1,6 @@
 import 'package:aplicacion_prueba/src/core/models/persona_modelo.dart';
 import 'package:flutter/material.dart';
+import 'package:aplicacion_prueba/main.dart';
 
 GlobalKey<FormState> formularioKey = GlobalKey<FormState>();
 
@@ -131,8 +132,9 @@ class _SegundaPaginaState extends State<SegundaPagina> {
                           content: Text("Todo esta correcto"),
                         ));
                       } else {
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text("Hay campos con errores"),
+                        //mostrar snackbar mediante un key
+                        homeState.currentState.showSnackBar(SnackBar(
+                          content: Text("Campos Vacios"),
                         ));
                       }
                     },

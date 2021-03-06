@@ -1,24 +1,48 @@
 import 'package:aplicacion_prueba/src/core/models/persona_modelo.dart';
 import 'package:flutter/material.dart';
 
-class CuartaPaginaArgumentos{
+class CuartaPaginaArgumentos {
   final String element;
   final Persona persona;
-  CuartaPaginaArgumentos({this.element,this.persona});
+  CuartaPaginaArgumentos({this.element, this.persona});
 }
 
 class CuartaPagina extends StatelessWidget {
-
   final String element;
   final Persona persona;
-  CuartaPagina({this.element,this.persona});
+  CuartaPagina({this.element, this.persona});
+
+  List<String> nombres = [
+    "alvaro",
+    'pepe',
+    'jose',
+    'maria',
+    'fernando',
+    'luisa',
+    'german',
+    "alvaro",
+    'pepe',
+    'jose',
+    'maria',
+    'fernando',
+    'luisa',
+    'german',
+    "alvaro",
+    'pepe',
+    'jose',
+    'maria',
+    'fernando',
+    'luisa',
+    'german'
+  ];
 
   //ruta asignada a la cuarta pantalla
   static const CUARTA_PAGINA_RUTA = "cuarta_pagina";
 
   @override
   Widget build(BuildContext context) {
-    final CuartaPaginaArgumentos args = ModalRoute.of(context).settings.arguments;
+    final CuartaPaginaArgumentos args =
+        ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text("Nueva pantalla"),
@@ -36,13 +60,23 @@ class CuartaPagina extends StatelessWidget {
             child: Center(
               child: RaisedButton(
                 child: Text("Volver"),
-                onPressed: (){
+                onPressed: () {
                   //Navigator pop permitira retornar a la anterior ruta definida
                   Navigator.pop(context);
                 },
               ),
             ),
           ),
+          //ListView.builder renderiza los elementos a medida que se lo requiere
+          Expanded(
+            child: ListView.builder(itemBuilder: (context, index) {
+              print("$index ${nombres[index]}");
+              return ListTile(
+                key: Key("$index"),
+                title: Text(nombres[index]),
+              );
+            },itemCount: nombres.length),
+          )
         ],
       ),
     );
