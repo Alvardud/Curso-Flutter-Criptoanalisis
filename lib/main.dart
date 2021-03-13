@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aplicacion_prueba/src/ui/pages/cuarta_pagina.dart';
 import 'package:aplicacion_prueba/src/ui/pages/primera_pagina.dart';
 import 'package:aplicacion_prueba/src/ui/pages/segunda_pagina.dart';
@@ -5,6 +7,8 @@ import 'package:aplicacion_prueba/src/ui/pages/tercera_pagina.dart';
 import 'package:aplicacion_prueba/src/ui/widgets/loading_widget/loading_widget_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 void main() {
   runApp(MiAplicacion());
@@ -40,12 +44,25 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   //controlador del tabbar
   TabController _controller;
 
+  final customIcon = IconData(0xe900,fontFamily: 'CustomFont');
+  Map<String,dynamic> json = Map<String,dynamic>();
+  String titulo;
+
+  void obtenerJson()async{
+    json = await jsonDecode(await DefaultAssetBundle.of(context).loadString("assets/nombres.json"));
+    setState(() {
+      titulo = json["nombre"];
+    });
+  }
+
   @override
   void initState() {
     //al inicializar el controlador asignamos la propiedad vsync la cual sera utilizada en el mixin
     _controller = TabController(length: 3, vsync: this);
     controlador = 0;
+    titulo = "Mi primera aplicacion";
     super.initState();
+    obtenerJson();
   }
 
   @override
@@ -60,6 +77,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       title: 'Flutter Demo',
       //Adicion de temas a la aplicacion
       theme: ThemeData(
+        textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme
+        ),
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -77,11 +97,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             LoadingWidgetController.instance.loading();
             LoadingWidgetController.instance.changeText("Se activo en FAB");
           },
-          child: Icon(Icons.edit),
+          child: Icon(customIcon),
         ),
         //Appbar (header o cavecera)
         appBar: AppBar(
-          title: Text("Mi primera aplicacion"),
+          title: Text(titulo),
           //bottom es un widget que se posicionara en la parte inferior del app bar
           //generalmente es otro appbar o un tabbar
           bottom: TabBar(

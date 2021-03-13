@@ -68,6 +68,24 @@ class _SegundaPaginaState extends State<SegundaPagina> {
                 //for(int i =0; i<10;i++)
                 //caja(),
                 //TextField
+
+                Container(
+                  height: 300,
+                  width: 300,
+                  //primera forma
+                  /*decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.contain,
+                      image: NetworkImage("https://i.ytimg.com/vi/IIjjrsepktA/maxresdefault.jpg")
+                    )
+                  ),*/
+                  //segunda forma
+                  child: Image(
+                    image: AssetImage("assets/gatito.jpg"),
+                    //MemoryImage
+                  ),
+                ),
+
                 TextFormField(
                   validator: (value) {
                     if (value.length < 3) {
